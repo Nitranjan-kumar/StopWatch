@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Stopwatch</title>
+</head>
+<body>
+    <div class="stopwatch">
+        <h1 id="display">00:00:00</h1>
+        <button id="startStop" onclick="startStop()">Start</button>
+        <button id="reset" onclick="reset()">Reset</button>
+    </div>
+    <script>
+        let timer;
+        let isRunning = false;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+
+function startStop() {
+    if (isRunning) {
+        // Stop the timer
+        clearInterval(timer);
+        document.getElementById("startStop").innerHTML = "Start";
+    } else {
+        // Start the timer
+        timer = setInterval(updateDisplay, 1000);
+        document.getElementById("startStop").innerHTML = "Stop";
+    }
+    isRunning = !isRunning;
+}
+
+function reset() {
+    // Reset the timer and display
+    clearInterval(timer);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    updateDisplay();
+    document.getElementById("startStop").innerHTML = "Start";
+    isRunning = false;
+}
+
+function updateDisplay() {
+    seconds++;
+    if (seconds == 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes == 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    // Format the time as HH:MM:SS
+    let timeString =
+        (hours < 10 ? "0" : "") + hours + ":" +
+        (minutes < 10 ? "0" : "") + minutes + ":" +
+        (seconds < 10 ? "0" : "") + seconds;
+
+    document.getElementById("display").innerHTML = timeString;
+}
+
+
+
+    </script>
+</body>
+</html>
